@@ -515,6 +515,20 @@
             }
         }
 
+        /* ============================================
+           FORM SUCCESS
+           ============================================ */
+        .form-success {
+            text-align: center;
+            padding: 3rem 0;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .reveal {
                 opacity: 1;
@@ -587,6 +601,15 @@
 
                 <p class="request-form__note">We review every request and respond within 1 business day. If there's a fit, we schedule a 30-minute diagnostic call to map your specific situation.</p>
             </form>
+
+            <div class="form-success" id="formSuccess" style="display: none;">
+                <svg width="48" height="48" viewBox="0 0 80 80" fill="none" style="margin-bottom: 1.25rem;">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h2 class="section__title">Request received.</h2>
+                <p style="font-size: 1.125rem; color: var(--charcoal); line-height: 1.75; max-width: 460px;">We'll review your submission and respond within 1 business day. If there's a fit, we'll schedule a 30-minute diagnostic call to map your specific situation.</p>
+            </div>
         </div>
     </section>
 
@@ -670,6 +693,40 @@
                     answer.style.maxHeight = inner.scrollHeight + 'px';
                 }
             });
+        });
+
+        // Form async submit
+        const form = document.querySelector('.request-form');
+        const formTitle = document.querySelector('#form .section__title');
+        const formSuccess = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    form.style.display = 'none';
+                    formTitle.style.display = 'none';
+                    formSuccess.style.display = 'block';
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Submit a Request';
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch {
+                btn.disabled = false;
+                btn.textContent = 'Submit a Request';
+                alert('Something went wrong. Please try again.');
+            }
         });
 
         // Smooth scroll for anchor links
