@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Request — Tetra | The Compounding Close for Finance Teams</title>
+    <meta name="description" content="Tell us about your finance team and close process. We'll respond within 1 business day with a clear next step. Tetra builds the Compounding Close using Claude.">
+    <meta name="robots" content="noindex">
+    <meta property="og:title" content="Submit a Request — Tetra">
+    <meta property="og:description" content="Tell us about your finance team and close process. We'll respond within 1 business day.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tetra.consulting/submitrequest/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           TOKENS
+           ============================================ */
+        :root {
+            --copper: #C84C2D;
+            --copper-dark: #A33D24;
+            --copper-light: #D6634A;
+            --charcoal: #3D4550;
+            --charcoal-dark: #2A2F36;
+            --charcoal-deeper: #1E2228;
+            --parchment: #F5F2ED;
+            --parchment-dark: #EBE7E0;
+            --yale: #2B4B6F;
+            --steel: #9A9B9C;
+            --steel-light: #B8B9BA;
+            --white: #FFFFFF;
+            --black: #1A1D21;
+            --cream: #FAF8F4;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, sans-serif;
+            color: var(--charcoal);
+            line-height: 1.6;
+            background: var(--parchment);
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ============================================
+           NAV
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 0;
+            background: rgba(42, 47, 54, 0.97);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav__wordmark {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--parchment);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .nav__link {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9375rem;
+            color: var(--steel-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav__link:hover {
+            color: var(--parchment);
+        }
+
+        /* ============================================
+           SECTIONS
+           ============================================ */
+        .section {
+            padding: clamp(4rem, 8vw, 7rem) 0;
+        }
+
+        .section--alt {
+            background: var(--white);
+        }
+
+        .section__label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--copper);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            color: var(--charcoal-dark);
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ============================================
+           HERO — LIGHT
+           ============================================ */
+        .hero--light {
+            padding: 8rem 0 3rem;
+        }
+
+        .hero--light__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            color: var(--charcoal-dark);
+            line-height: 1.15;
+            max-width: 700px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero--light__body {
+            max-width: 700px;
+        }
+
+        .hero--light__body p {
+            font-size: 1.125rem;
+            color: var(--charcoal);
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .hero--light__body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           TWO-COLUMN LAYOUT
+           ============================================ */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* ============================================
+           CHECKLIST
+           ============================================ */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist__item {
+            font-size: 1.0625rem;
+            color: var(--charcoal);
+            padding: 0.875rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            border-bottom: 1px solid var(--parchment-dark);
+            line-height: 1.5;
+        }
+
+        .checklist__item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist__item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--copper);
+            border-radius: 50%;
+        }
+
+        .checklist__note {
+            font-size: 0.9375rem;
+            color: var(--steel);
+            font-style: italic;
+            margin-top: 1.25rem;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           IDEAL CLIENT CARDS
+           ============================================ */
+        .ideal-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 960px;
+            margin: 2rem auto 0;
+        }
+
+        .ideal-card {
+            border: 1px solid var(--parchment-dark);
+            border-top: 2px solid var(--copper);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .ideal-card__value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--charcoal-dark);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           REQUEST FORM
+           ============================================ */
+        .request-form {
+            max-width: 580px;
+        }
+
+        .request-form__group {
+            margin-bottom: 1.25rem;
+        }
+
+        .request-form__label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8125rem;
+            color: var(--charcoal-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+        }
+
+        .request-form__input,
+        .request-form__select,
+        .request-form__textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9375rem;
+            color: var(--charcoal-dark);
+            background: var(--white);
+            border: 1px solid var(--parchment-dark);
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .request-form__input:focus,
+        .request-form__select:focus,
+        .request-form__textarea:focus {
+            border-color: var(--copper);
+        }
+
+        .request-form__input::placeholder,
+        .request-form__textarea::placeholder {
+            color: var(--steel);
+        }
+
+        .request-form__select {
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%239A9B9C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+
+        .request-form__textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .request-form__row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .request-form__note {
+            font-size: 0.9375rem;
+            color: var(--steel);
+            line-height: 1.6;
+            margin-top: 1.5rem;
+        }
+
+        /* ============================================
+           FAQ
+           ============================================ */
+        .faq__item {
+            border-bottom: 1px solid var(--parchment-dark);
+        }
+
+        .faq__question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--charcoal-dark);
+        }
+
+        .faq__icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq__item.is-open .faq__icon {
+            transform: rotate(45deg);
+        }
+
+        .faq__answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq__answer-inner {
+            padding: 0 0 1.5rem;
+            font-size: 0.9375rem;
+            color: var(--charcoal);
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            letter-spacing: 0.03em;
+        }
+
+        .btn--primary {
+            background: var(--copper);
+            color: var(--white);
+            padding: 1rem 2rem;
+            min-height: 52px;
+        }
+
+        .btn--primary:hover {
+            background: var(--copper-dark);
+            transform: translateY(-1px);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--charcoal-dark);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer__logo {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        .footer__wordmark {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            color: var(--parchment);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .footer__links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer__link {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.875rem;
+            color: var(--steel);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer__link:hover {
+            color: var(--parchment);
+        }
+
+        .footer__copy {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--steel);
+            letter-spacing: 0.03em;
+        }
+
+        /* ============================================
+           SCROLL REVEAL
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero--light {
+                padding-top: 6.5rem;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .ideal-cards {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+            }
+
+            .request-form {
+                max-width: 100%;
+            }
+
+            .request-form__row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer .container {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer__links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <a href="/" class="nav__logo">
+                <svg width="28" height="28" viewBox="0 0 80 80" fill="none">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="nav__wordmark">tetra</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO — BRIEF RESTATEMENT -->
+    <section class="hero--light">
+        <div class="container">
+            <h1 class="hero--light__title reveal">Compounding Close</h1>
+            <p class="hero--light__subtitle reveal" style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: clamp(1.125rem, 2vw, 1.375rem); color: var(--charcoal); margin-bottom: 2rem;">90-day Transformation For Your Finance Team</p>
+            <div class="hero--light__body reveal">
+                <p>Your close resets to zero every month. Your systems don't connect. Your team spends its time on data entry instead of analysis.</p>
+                <p>The Compounding Close fixes all three. We map your workflows, build Claude workflows on your actual systems and data, and train your team to run a close that gets shorter every cycle. One engagement. Three problems solved. And the improvement compounds from there.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="section" id="form">
+        <div class="container" style="max-width: 580px;">
+            <h2 class="section__title reveal">Submit a Request</h2>
+
+            <form action="https://formspree.io/f/xreaobjb" method="POST" class="request-form reveal" style="max-width: 100%;">
+                <div class="request-form__row">
+                    <div class="request-form__group">
+                        <label class="request-form__label" for="firstname">First Name</label>
+                        <input type="text" class="request-form__input" id="firstname" name="firstname" placeholder="Jane" required>
+                    </div>
+                    <div class="request-form__group">
+                        <label class="request-form__label" for="lastname">Last Name</label>
+                        <input type="text" class="request-form__input" id="lastname" name="lastname" placeholder="Smith" required>
+                    </div>
+                </div>
+
+                <div class="request-form__group">
+                    <label class="request-form__label" for="email">Work Email</label>
+                    <input type="email" class="request-form__input" id="email" name="email" placeholder="jane@company.com" required>
+                </div>
+
+                <div class="request-form__group">
+                    <label class="request-form__label" for="company">Company Name</label>
+                    <input type="text" class="request-form__input" id="company" name="company" placeholder="Acme Corp" required>
+                </div>
+
+                <div class="request-form__group">
+                    <label class="request-form__label" for="bottleneck">Biggest Bottleneck in Your Current Close</label>
+                    <textarea class="request-form__textarea" id="bottleneck" name="bottleneck" placeholder="The team reconciles independently with no shared patterns, and the close keeps getting longer..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn--primary" style="width: 100%;">Submit a Request</button>
+
+                <p class="request-form__note">We review every request and respond within 1 business day. If there's a fit, we schedule a 30-minute diagnostic call to map your specific situation.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="container">
+            <div class="section__label reveal">Common Questions</div>
+
+            <div class="faq reveal" id="faq" style="max-width: 700px;">
+                <div class="faq__item">
+                    <button class="faq__question">
+                        What happens after I submit?
+                        <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <div class="faq__answer"><div class="faq__answer-inner">We review your request within 1 business day. If the fit looks right, we schedule a 30-minute diagnostic call. On that call, we map your current close timeline, system architecture, and where insights are blocked. Within 3 business days after the call, you get a scope outline with specific deliverables, timeline, and pricing.</div></div>
+                </div>
+                <div class="faq__item">
+                    <button class="faq__question">
+                        What does the engagement cost?
+                        <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <div class="faq__answer"><div class="faq__answer-inner">Engagements are scoped to your team's size, systems, and workflows. We don't publish a fixed price because every finance team's situation is different. After the diagnostic call, you get a clear number.</div></div>
+                </div>
+                <div class="faq__item">
+                    <button class="faq__question">
+                        What if my team already tried Claude and it didn't stick?
+                        <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <div class="faq__answer"><div class="faq__answer-inner">That's the most common starting point for teams that reach out. Claude is impressive in a demo. It falls apart in a workflow — because nobody built it into one. Classification rules, reconciliation patterns, knowledge that carries forward between sessions — none of it was there. The Compounding Close solves this by embedding Claude into the actual workflow, not running it alongside one. Your team's knowledge goes into the system, and the system applies it every cycle. Month 2 picks up where Month 1 left off instead of starting from scratch.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <a href="/" class="footer__logo">
+                <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="footer__wordmark">tetra</span>
+            </a>
+            <div class="footer__links">
+                <a href="https://buildingprofit.substack.com" class="footer__link" target="_blank" rel="noopener">Newsletter</a>
+            </div>
+            <span class="footer__copy">&copy; 2026 tetra.consulting</span>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => revealObserver.observe(el));
+
+        // FAQ accordion
+        document.querySelectorAll('.faq__question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const answer = item.querySelector('.faq__answer');
+                const inner = answer.querySelector('.faq__answer-inner');
+                const isOpen = item.classList.contains('is-open');
+
+                document.querySelectorAll('.faq__item.is-open').forEach(openItem => {
+                    openItem.classList.remove('is-open');
+                    openItem.querySelector('.faq__answer').style.maxHeight = '0';
+                });
+
+                if (!isOpen) {
+                    item.classList.add('is-open');
+                    answer.style.maxHeight = inner.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

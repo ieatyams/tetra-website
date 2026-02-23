@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetra — The Compounding Close for Finance Teams</title>
+    <meta name="description" content="Your close resets to zero every month. Your systems don't connect. Your team can't get to insights. The Compounding Close changes this — every cycle gets shorter. Tetra builds it for finance teams using Claude.">
+    <meta name="keywords" content="Claude for finance teams, Claude for month-end close, Claude Cowork for FP&A, Claude Cowork for accounting, Claude for the office of the CFO, Claude for variance analysis, Claude for financial reporting">
+    <meta property="og:title" content="Tetra — The Compounding Close for Finance Teams">
+    <meta property="og:description" content="Your close resets to zero every month. Your systems don't connect. The Compounding Close changes this — every cycle gets shorter.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tetra.consulting/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           TOKENS
+           ============================================ */
+        :root {
+            --copper: #C84C2D;
+            --copper-dark: #A33D24;
+            --copper-light: #D6634A;
+            --charcoal: #3D4550;
+            --charcoal-dark: #2A2F36;
+            --charcoal-deeper: #1E2228;
+            --parchment: #F5F2ED;
+            --parchment-dark: #EBE7E0;
+            --yale: #2B4B6F;
+            --steel: #9A9B9C;
+            --steel-light: #B8B9BA;
+            --white: #FFFFFF;
+            --black: #1A1D21;
+            --cream: #FAF8F4;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, sans-serif;
+            color: var(--charcoal);
+            line-height: 1.6;
+            background: var(--parchment);
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .container--narrow {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ============================================
+           SPLIT LAYOUTS — Asymmetric 2-column grids
+           ============================================ */
+        .split {
+            display: grid;
+            grid-template-columns: 45fr 55fr;
+            gap: clamp(2rem, 4vw, 4rem);
+            align-items: start;
+        }
+
+        .split--reverse {
+            grid-template-columns: 55fr 45fr;
+        }
+
+        .split--wide {
+            grid-template-columns: 40fr 60fr;
+        }
+
+        .split__sticky {
+            position: sticky;
+            top: 6rem;
+        }
+
+        /* ============================================
+           PROSE BLOCK — Constrained reading column
+           ============================================ */
+        .prose-block {
+            max-width: 560px;
+        }
+
+        .prose-block p {
+            font-size: 1.125rem;
+            color: var(--charcoal);
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+
+        .prose-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           PULL QUOTE — Large type with copper border
+           ============================================ */
+        .pull-quote {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--charcoal-dark);
+            line-height: 1.4;
+            border-top: 3px solid var(--copper);
+            padding-top: 1.5rem;
+            font-style: italic;
+        }
+
+        /* ============================================
+           INLINE CALLOUT — Mid-prose accent block
+           ============================================ */
+        .inline-callout {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            color: var(--copper);
+            border-left: 4px solid var(--copper);
+            padding: 1.5rem 0 1.5rem 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        /* ============================================
+           COPPER ACCENT & DIVIDER — Visual separators
+           ============================================ */
+        .copper-accent {
+            width: 80px;
+            height: 3px;
+            background: var(--copper);
+            margin-bottom: 1.5rem;
+        }
+
+        .divider-line {
+            width: 80px;
+            height: 1px;
+            background: var(--parchment-dark);
+            margin: 2rem 0;
+        }
+
+        /* ============================================
+           NAV
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 0;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav--scrolled {
+            background: rgba(42, 47, 54, 0.97);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav__wordmark {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--parchment);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .nav__links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav__link {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9375rem;
+            color: var(--steel-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav__link:hover {
+            color: var(--parchment);
+        }
+
+        .nav__cta {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8125rem;
+            color: var(--white);
+            background: var(--copper);
+            padding: 0.625rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            transition: background 0.2s;
+        }
+
+        .nav__cta:hover {
+            background: var(--copper-dark);
+        }
+
+        .nav__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav__toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--parchment);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            background: var(--charcoal-deeper);
+            padding: 10rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(43,75,111,0.08) 59px, rgba(43,75,111,0.08) 60px),
+                repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(43,75,111,0.08) 59px, rgba(43,75,111,0.08) 60px);
+            pointer-events: none;
+        }
+
+        .hero__bg-mark {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(3.25rem, 7vw, 5.5rem);
+            color: var(--parchment);
+            line-height: 1.12;
+            max-width: 800px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero__rule {
+            width: 80px;
+            height: 3px;
+            background: var(--copper);
+            margin-top: 0.5rem;
+        }
+
+        .hero__scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0.4;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        .hero__sub {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.25rem;
+            color: var(--steel-light);
+            max-width: 540px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            letter-spacing: 0.03em;
+        }
+
+        .btn--primary {
+            background: var(--copper);
+            color: var(--white);
+            padding: 1rem 2rem;
+            min-height: 52px;
+        }
+
+        .btn--primary:hover {
+            background: var(--copper-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn--outline {
+            background: transparent;
+            color: var(--parchment);
+            padding: 1rem 2rem;
+            min-height: 52px;
+            border: 1.5px solid rgba(245,242,237,0.25);
+        }
+
+        .btn--outline:hover {
+            border-color: rgba(245,242,237,0.5);
+            transform: translateY(-1px);
+        }
+
+        /* ============================================
+           SECTIONS
+           ============================================ */
+        .section {
+            padding: clamp(5rem, 10vw, 8rem) 0;
+        }
+
+        .section--spacious {
+            padding: clamp(6rem, 12vw, 10rem) 0;
+        }
+
+        .section--alt {
+            background: var(--white);
+        }
+
+        .section--dark {
+            background: var(--charcoal-deeper);
+        }
+
+        .section__label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--copper);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section__label--light {
+            color: var(--copper-light);
+        }
+
+        .section__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            color: var(--charcoal-dark);
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .section__title--light {
+            color: var(--parchment);
+        }
+
+        .section__desc {
+            font-size: 1.125rem;
+            color: var(--charcoal);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .section__desc--light {
+            color: var(--steel-light);
+        }
+
+        /* ============================================
+           HIGHLIGHT UTILITY
+           ============================================ */
+        .highlight {
+            color: var(--copper);
+        }
+
+        /* ============================================
+           NARRATIVE — Editorial prose block
+           ============================================ */
+        .narrative {
+            max-width: 640px;
+        }
+
+        .narrative p {
+            font-size: 1.125rem;
+            color: var(--charcoal);
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+
+        .narrative p:last-child {
+            margin-bottom: 0;
+        }
+
+        .narrative--light p {
+            color: var(--steel-light);
+        }
+
+        .narrative strong {
+            color: var(--charcoal-dark);
+            font-weight: 600;
+        }
+
+        .narrative p.narrative__closing--emphasis {
+            font-size: 1.25rem;
+            color: var(--charcoal-dark);
+        }
+
+        /* ============================================
+           NARRATIVE ACCENT — Copper left border paragraph
+           ============================================ */
+        .narrative__accent {
+            border-left: 3px solid var(--copper);
+            padding-left: 1.25rem;
+            font-style: italic;
+        }
+
+        /* ============================================
+           STATEMENT STACK — Dramatic typography
+           ============================================ */
+        .statement-stack {
+            max-width: 700px;
+        }
+
+        .statement-stack__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--charcoal-dark);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .statement-stack__punch {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--copper);
+            line-height: 1.2;
+            margin-bottom: 3rem;
+        }
+
+        .statement-stack__response {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 1.25rem;
+            color: var(--charcoal);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .statement-stack__response:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           IDEAL CLIENT CARDS
+           ============================================ */
+        .ideal-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 960px;
+            margin: 2rem auto 0;
+        }
+
+        .ideal-card {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-top: 2px solid var(--copper);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .ideal-card__label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--copper-light);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .ideal-card__value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--parchment);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           FEATURE BLOCK — Contained service card
+           ============================================ */
+        .feature-block {
+            background: var(--parchment);
+            border: 1px solid var(--parchment-dark);
+            border-radius: 8px;
+            padding: clamp(2.5rem, 5vw, 3.5rem);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature-block .section__label {
+            margin-bottom: 1rem;
+        }
+
+        .feature-block .section__title {
+            margin-bottom: 1rem;
+        }
+
+        .feature-block__desc {
+            font-size: 1.125rem;
+            color: var(--charcoal);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+
+        .feature-block__heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--charcoal-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 3rem;
+        }
+
+        .feature-list li {
+            font-size: 1.0625rem;
+            color: var(--charcoal);
+            line-height: 1.7;
+            padding: 0.75rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            border-bottom: 1px solid var(--parchment-dark);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.125rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--copper);
+        }
+
+        .feature-list--grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 2rem;
+        }
+
+        .feature-list--grid li {
+            border-bottom: 1px solid var(--parchment-dark);
+        }
+
+        /* ============================================
+           FINAL CTA
+           ============================================ */
+        .final-cta {
+            padding: clamp(7rem, 14vw, 10rem) 0;
+            text-align: center;
+        }
+
+        .final-cta__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--parchment);
+            line-height: 1.2;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .final-cta__rule {
+            width: 40px;
+            height: 2px;
+            background: var(--copper);
+            margin: 0 auto 1.5rem;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--charcoal-dark);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer__logo {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        .footer__wordmark {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            color: var(--parchment);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .footer__links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer__link {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.875rem;
+            color: var(--steel);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer__link:hover {
+            color: var(--parchment);
+        }
+
+        .footer__copy {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--steel);
+            letter-spacing: 0.03em;
+        }
+
+        /* ============================================
+           SCROLL REVEAL
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 0 4rem;
+                min-height: auto;
+            }
+
+            .hero__title {
+                font-size: clamp(2.5rem, 8vw, 3.25rem);
+            }
+
+            .hero__scroll-hint {
+                display: none;
+            }
+
+            .nav__links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(42, 47, 54, 0.98);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                border-top: 1px solid rgba(255,255,255,0.06);
+            }
+
+            .nav__links.is-open {
+                display: flex;
+            }
+
+            .nav__toggle {
+                display: block;
+            }
+
+            .split,
+            .split--reverse,
+            .split--wide {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .split__sticky {
+                position: static;
+            }
+
+            .ideal-cards {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+            }
+
+            .feature-list--grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer .container {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer__links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .reveal-stagger > * {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .hero__scroll-hint {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <a href="/" class="nav__logo">
+                <svg width="28" height="28" viewBox="0 0 80 80" fill="none">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="nav__wordmark">tetra</span>
+            </a>
+            <div class="nav__links" id="navLinks">
+                <a href="https://buildingprofit.substack.com" class="nav__link" target="_blank" rel="noopener">Newsletter</a>
+                <a href="/submitrequest/" class="nav__cta">Contact Us</a>
+            </div>
+            <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO — Full viewport, scaled headline, copper accent, scroll hint -->
+    <header class="hero">
+        <svg class="hero__bg-mark" width="800" height="800" viewBox="0 0 80 80" fill="none">
+            <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                  stroke="#C84C2D" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="container">
+            <h1 class="hero__title reveal">Close in Days.<br><span class="highlight">Same Team.</span></h1>
+            <div class="hero__rule reveal"></div>
+        </div>
+        <div class="hero__scroll-hint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M7 10l5 5 5-5" stroke="#F5F2ED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </header>
+
+    <!-- SECTION: THE PROBLEM — Asymmetric 2-column split -->
+    <section class="section section--spacious" id="problem">
+        <div class="container">
+            <div class="split">
+                <div class="reveal">
+                    <h2 class="section__title">Is your finance team designed to succeed?</h2>
+                    <div class="copper-accent"></div>
+                </div>
+                <div class="prose-block reveal">
+                    <p>Most finance teams accept a "just get it done" approach to the close. They throw more hours and more spreadsheets at the same broken process every quarter, absorbing complexity instead of eliminating it.</p>
+                    <p>The result is bloated close timelines, manual workarounds, burned-out analysts, delayed reporting, and zero capacity for strategic work. Finance becomes a reporting function instead of a strategic engine.</p>
+                    <div class="divider-line"></div>
+                    <p>High performance comes from engineering a better process: connected systems that eliminate silos, automated workflows that replace manual data entry, a clear close calendar with defined ownership at every step, and a standard of continuous improvement that compresses the timeline quarter after quarter.</p>
+                    <p>A high-performing close frees analyst capacity for real analysis, builds executive confidence in the numbers, and turns finance into the strategic leader it should be.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: WE HELP — Transition strip with icon -->
+    <section class="section section--dark" style="padding: clamp(5rem, 10vw, 7rem) 0;">
+        <div class="container">
+            <div class="reveal" style="text-align: center;">
+                <svg width="48" height="48" viewBox="0 0 80 80" fill="none" style="margin: 0 auto 1.25rem;">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h2 class="section__title section__title--light" style="font-size: clamp(1.75rem, 3.5vw, 2.5rem); max-width: 700px; margin: 0 auto 1.5rem;">We help finance teams design their path to high performance.</h2>
+                <p style="font-family: 'Source Sans Pro', sans-serif; font-size: 1.125rem; color: var(--steel-light); font-style: italic; line-height: 1.7; max-width: 640px; margin: 0 auto;">The goal is a finance function known for delivering clean, trusted numbers faster than anyone thought possible.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: REALITY — Three visual modules -->
+    <section class="section section--spacious">
+        <div class="container">
+
+            <!-- Module A: Statement Stack (paragraphs 1-3) -->
+            <div class="reveal" style="margin-bottom: clamp(4rem, 8vw, 6rem);">
+                <div class="statement-stack">
+                    <div class="statement-stack__title">Teams treat a slow close like it's just how things work.</div>
+                    <div class="statement-stack__punch">It isn't.</div>
+                    <div class="statement-stack__response">The expectations on finance are compounding.</div>
+                    <div class="statement-stack__response">Maybe even unsustainable.</div>
+                </div>
+            </div>
+
+            <!-- Module B: Split with pull-quote (paragraphs 4-6) -->
+            <div class="split split--reverse reveal" style="margin-bottom: clamp(4rem, 8vw, 6rem);">
+                <div class="pull-quote">The finance cycle of "just get through it."</div>
+                <div class="prose-block">
+                    <p>Too many manual steps buried in processes no one's questioned in years. Too many systems stitched together with exports, uploads, and hope. Too many analysts spending close week on data entry instead of judgment.</p>
+                    <p>Timelines are scrutinized. Headcount is frozen. Leadership wants answers faster. No one's patient with "we'll have it next week."</p>
+                </div>
+            </div>
+
+            <!-- Module C: Narrow centered (paragraphs 7-9) -->
+            <div class="reveal">
+                <div class="narrative" style="max-width: 640px; margin: 0 auto;">
+                    <p>The CFO doesn't need another dashboard. They need numbers they can trust on day five.</p>
+                    <p class="narrative__closing--emphasis">In any function where credibility matters, "slow and manual" is slowly being replaced.</p>
+                    <p class="narrative__closing--emphasis">Not criticized. Not restructured. Just quietly routed around.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: WHY FINANCE LEADERS CALL US — Split with sticky heading -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="split split--wide">
+                <div class="split__sticky reveal">
+                    <h2 class="section__title" style="margin-bottom: 1.25rem;"><strong>Why do finance leaders call us...</strong></h2>
+                    <div class="copper-accent"></div>
+                </div>
+                <div class="prose-block reveal">
+                    <p>Finance teams reach out to us because the operation looks functional on the surface but can't keep pace with the business underneath. They lack an intentionally designed close process. They absorb complexity instead of engineering it out. Stuck in manual reconciliation, disconnected systems, and monthly firefighting as the default operating mode.</p>
+                    <p>The close crept from 8 days to 12. More entities came online. Integrations were promised but never finished. The team compensates with spreadsheets, side channels, and sheer effort. ERP exports into Excel, Excel into another Excel, three people reconciling the same sub-ledger independently because there's no shared system of record.</p>
+                    <p>That effort feels like diligence, but over time, analyst capacity disappears into data collection, timelines slip, and leadership loses confidence in the numbers. The CFO calls finance a "strategic partner" at the all-hands then asks why the forecast is three weeks late. Capital allocation decisions get made without finance input because the numbers aren't ready.</p>
+                    <p>Someone on the team tried AI. Impressive for 15 minutes. Then back to the same spreadsheets the next morning. Nobody built it into the actual workflow: no classification rules, no reconciliation patterns, no institutional knowledge that carries forward.</p>
+                    <div class="inline-callout">That's not adoption. That's a demo.</div>
+                    <p>They don't need another dashboard. They need to break the cycle of manual accumulation, system fragmentation, and headcount-dependent scaling.</p>
+                    <p>The old ways of running a close are under pressure. That's where we come in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: IDEAL CLIENTS — Cards with copper borders, staggered reveal -->
+    <section class="section section--dark" style="text-align: center;">
+        <div class="container">
+            <h2 class="section__title section__title--light reveal" style="margin-bottom: 2rem;">Our ideal clients</h2>
+            <div class="ideal-cards reveal-stagger">
+                <div class="ideal-card">
+                    <div class="ideal-card__value">5–30 people across accounting and FP&A.</div>
+                </div>
+                <div class="ideal-card">
+                    <div class="ideal-card__value">Running NetSuite, Sage, QBO Enterprise, or a similar ERP.</div>
+                </div>
+                <div class="ideal-card">
+                    <div class="ideal-card__value">Close takes 8+ business days and it's not getting shorter.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: COMPOUND CLOSE — Centered feature block, 2x2 grid -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="reveal">
+                <div class="feature-block">
+                    <div class="copper-accent"></div>
+                    <h2 class="section__title">Compound Close</h2>
+                    <p class="feature-block__desc">A 12 week engagement to diagnose, redesign, and operationalize your close process making it fast, trusted, and repeatable without adding headcount.</p>
+                    <div class="feature-block__heading">Best for:</div>
+                    <ul class="feature-list feature-list--grid">
+                        <li>Finance teams where the close has crept past 10 days and no one can explain exactly why</li>
+                        <li>Organizations that have added entities, ERPs, or business units without redesigning the close around them</li>
+                        <li>Teams where 80% of analyst time goes to data collection and reconciliation instead of analysis</li>
+                        <li>Companies that have experimented with AI in finance but haven't embedded it into actual close workflows</li>
+                    </ul>
+                    <a href="/submitrequest/" class="btn btn--primary">Submit a Request</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA — Premium breathing room, copper rule -->
+    <section class="section--dark final-cta">
+        <div class="container">
+            <div class="reveal">
+                <svg width="48" height="48" viewBox="0 0 80 80" fill="none" style="margin: 0 auto 1rem;">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="final-cta__rule"></div>
+                <h2 class="final-cta__title">If you're ready to get help, submit a request.</h2>
+                <a href="/submitrequest/" class="btn btn--primary">Submit a Request</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <a href="/" class="footer__logo">
+                <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
+                    <path d="M40 10 L12 66 L68 66 L40 10 L40 44 L12 66 M40 44 L68 66"
+                          stroke="#C84C2D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="footer__wordmark">tetra</span>
+            </a>
+            <div class="footer__links">
+                <a href="https://buildingprofit.substack.com" class="footer__link" target="_blank" rel="noopener">Newsletter</a>
+            </div>
+            <span class="footer__copy">&copy; 2026 tetra.consulting</span>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('is-open');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Scroll reveal (includes stagger)
+        const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => revealObserver.observe(el));
+    </script>
+
+</body>
+</html>
